@@ -12,1721 +12,770 @@
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&family=Dancing+Script:wght@600;700&display=swap"
     rel="stylesheet" />
   <style>
-    /* ===================== RESET & ROOT ===================== */
-    *,
-    *::before,
-    *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    :root {
-      --rose: #e8537a;
-      --rose-light: #f7a8c0;
-      --rose-dark: #c0395a;
-      --gold: #f0b943;
-      --gold-light: #fde68a;
-      --lavender: #c084fc;
-      --mint: #6ee7b7;
-      --cream: #fff5f7;
-      --warm-white: #fffbf2;
-      --text-dark: #2d1b2e;
-      --text-mid: #5a3d5c;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: 'Lato', sans-serif;
-      background: var(--cream);
-      color: var(--text-dark);
-      overflow-x: hidden;
-    }
-
-    /* ===================== ANIMATED BG ===================== */
-    #bg-canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* ===================== HERO SECTION ===================== */
-    #hero {
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 1;
-      overflow: hidden;
-      background: linear-gradient(135deg, #2d1b2e 0%, #5a1a4a 30%, #8b2252 60%, #c0395a 100%);
-    }
-
-    #hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 50% 0%, rgba(240, 185, 67, 0.25) 0%, transparent 60%),
-        radial-gradient(ellipse at 100% 100%, rgba(192, 132, 252, 0.2) 0%, transparent 50%);
-    }
-
-    .hero-glow {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(80px);
-      animation: pulse-glow 4s ease-in-out infinite alternate;
-    }
-
-    .hero-glow:nth-child(1) {
-      width: 400px;
-      height: 400px;
-      background: rgba(232, 83, 122, 0.35);
-      top: -100px;
-      left: -80px;
-      animation-delay: 0s;
-    }
-
-    .hero-glow:nth-child(2) {
-      width: 350px;
-      height: 350px;
-      background: rgba(240, 185, 67, 0.25);
-      bottom: -80px;
-      right: -60px;
-      animation-delay: 1.5s;
-    }
-
-    .hero-glow:nth-child(3) {
-      width: 300px;
-      height: 300px;
-      background: rgba(192, 132, 252, 0.2);
-      top: 40%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      animation-delay: 3s;
-    }
-
-    @keyframes pulse-glow {
-      from {
-        opacity: 0.6;
-        transform: scale(1);
-      }
-
-      to {
-        opacity: 1;
-        transform: scale(1.15);
-      }
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      padding: 2rem;
-    }
-
-    .badge {
-      display: inline-block;
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      backdrop-filter: blur(10px);
-      color: var(--gold-light);
-      font-size: 0.85rem;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      padding: 0.5rem 1.5rem;
-      border-radius: 50px;
-      margin-bottom: 1.5rem;
-      animation: fade-down 0.8s ease both;
-    }
-
-    @keyframes fade-down {
-      from {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .hero-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.5rem, 6vw, 5rem);
-      font-weight: 700;
-      color: #fff;
-      line-height: 1.2;
-      margin-bottom: 0.5rem;
-      animation: fade-up 0.9s 0.2s ease both;
-    }
-
-    .hero-title span {
-      color: var(--gold);
-    }
-
-    .hero-subtitle {
-      font-family: 'Dancing Script', cursive;
-      font-size: clamp(1.4rem, 3vw, 2.2rem);
-      color: var(--rose-light);
-      margin-bottom: 2rem;
-      animation: fade-up 0.9s 0.4s ease both;
-    }
-
-    @keyframes fade-up {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .hero-desc {
-      max-width: 540px;
-      color: rgba(255, 255, 255, 0.8);
-      font-size: 1.05rem;
-      line-height: 1.7;
-      margin: 0 auto 2.5rem;
-      animation: fade-up 0.9s 0.6s ease both;
-    }
-
-    .btn-primary {
-      display: inline-block;
-      padding: 1rem 2.5rem;
-      background: linear-gradient(135deg, var(--gold), #f97316);
-      color: var(--text-dark);
-      font-weight: 700;
-      font-size: 1.05rem;
-      border: none;
-      border-radius: 50px;
-      cursor: pointer;
-      text-decoration: none;
-      box-shadow: 0 6px 30px rgba(240, 185, 67, 0.4);
-      transition: transform 0.2s, box-shadow 0.2s;
-      animation: fade-up 0.9s 0.8s ease both;
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-3px) scale(1.04);
-      box-shadow: 0 12px 40px rgba(240, 185, 67, 0.55);
-    }
-
-    .scroll-arrow {
-      position: absolute;
-      bottom: 2rem;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 2;
-      text-align: center;
-      animation: bounce 2s infinite;
-    }
-
-    .scroll-arrow span {
-      display: block;
-      font-size: 2rem;
-      color: rgba(255, 255, 255, 0.6);
-    }
-
-    @keyframes bounce {
-
-      0%,
-      100% {
-        transform: translateX(-50%) translateY(0)
-      }
-
-      50% {
-        transform: translateX(-50%) translateY(10px)
-      }
-    }
-
-    /* ===================== FLOATING PETALS ===================== */
-    .petal {
-      position: fixed;
-      pointer-events: none;
-      z-index: 999;
-      font-size: 1.4rem;
-      animation: petal-fall linear infinite;
-      opacity: 0.8;
-    }
-
-    @keyframes petal-fall {
-      0% {
-        transform: translateY(-50px) rotate(0deg);
-        opacity: 0;
-      }
-
-      10% {
-        opacity: 0.9;
-      }
-
-      90% {
-        opacity: 0.7;
-      }
-
-      100% {
-        transform: translateY(110vh) rotate(720deg);
-        opacity: 0;
-      }
-    }
-
-    /* ===================== SECTION SHARED ===================== */
-    section {
-      position: relative;
-      z-index: 1;
-    }
-
-    .section-wrapper {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 5rem 1.5rem;
-    }
-
-    .section-label {
-      text-align: center;
-      font-size: 0.8rem;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      color: var(--rose);
-      margin-bottom: 0.8rem;
-    }
-
-    .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 4vw, 3rem);
-      text-align: center;
-      color: var(--text-dark);
-      margin-bottom: 1rem;
-    }
-
-    .section-title em {
-      color: var(--rose);
-      font-style: italic;
-    }
-
-    .section-sub {
-      text-align: center;
-      max-width: 500px;
-      margin: 0 auto 3rem;
-      color: var(--text-mid);
-      line-height: 1.7;
-    }
-
-    /* ===================== TRIBUTE CARDS ===================== */
-    #tribute {
-      background: var(--warm-white);
-    }
-
-    .tribute-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .tribute-card {
-      background: #fff;
-      border-radius: 20px;
-      padding: 2rem 1.5rem;
-      text-align: center;
-      box-shadow: 0 4px 20px rgba(232, 83, 122, 0.1);
-      border: 1px solid rgba(232, 83, 122, 0.1);
-      transition: transform 0.3s, box-shadow 0.3s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .tribute-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, var(--rose), var(--gold), var(--lavender));
-    }
-
-    .tribute-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 12px 40px rgba(232, 83, 122, 0.2);
-    }
-
-    .tribute-icon {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-      display: block;
-    }
-
-    .tribute-card h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.3rem;
-      color: var(--text-dark);
-      margin-bottom: 0.7rem;
-    }
-
-    .tribute-card p {
-      color: var(--text-mid);
-      line-height: 1.65;
-      font-size: 0.95rem;
-    }
-
-    /* ===================== THE GAME SECTION ===================== */
-    #game-section {
-      background: linear-gradient(180deg, #fce4ec 0%, #f8bbd9 50%, #fce4ec 100%);
-    }
-
-    #game-container {
-      background: rgba(255, 255, 255, 0.65);
-      backdrop-filter: blur(15px);
-      border-radius: 30px;
-      padding: 2.5rem;
-      box-shadow: 0 8px 50px rgba(232, 83, 122, 0.2);
-      border: 1px solid rgba(255, 255, 255, 0.8);
-    }
-
-    .game-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1rem;
-      padding-bottom: 1.5rem;
-      border-bottom: 1px solid rgba(232, 83, 122, 0.2);
-      margin-bottom: 2rem;
-    }
-
-    .game-title-wrap h2 {
-      font-family: 'Dancing Script', cursive;
-      font-size: 1.8rem;
-      color: var(--rose-dark);
-    }
-
-    .game-title-wrap p {
-      font-size: 0.9rem;
-      color: var(--text-mid);
-      margin-top: 0.25rem;
-    }
-
-    .game-stats {
-      display: flex;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-
-    .stat-box {
-      background: linear-gradient(135deg, var(--rose), var(--rose-dark));
-      color: #fff;
-      border-radius: 14px;
-      padding: 0.6rem 1.2rem;
-      text-align: center;
-      min-width: 90px;
-    }
-
-    .stat-box .stat-val {
-      font-size: 1.6rem;
-      font-weight: 700;
-      line-height: 1;
-    }
-
-    .stat-box .stat-label {
-      font-size: 0.72rem;
-      opacity: 0.85;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .stat-box.gold-box {
-      background: linear-gradient(135deg, var(--gold), #f97316);
-    }
-
-    .stat-box.purple-box {
-      background: linear-gradient(135deg, var(--lavender), #9333ea);
-    }
-
-    /* LEVEL & PROGRESS */
-    .level-bar-wrap {
-      margin-bottom: 1.5rem;
-    }
-
-    .level-bar-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 0.4rem;
-      font-size: 0.85rem;
-      color: var(--text-mid);
-    }
-
-    .level-bar-bg {
-      background: rgba(232, 83, 122, 0.15);
-      border-radius: 50px;
-      height: 10px;
-      overflow: hidden;
-    }
-
-    .level-bar-fill {
-      height: 100%;
-      border-radius: 50px;
-      background: linear-gradient(90deg, var(--rose), var(--gold));
-      transition: width 0.5s ease;
-    }
-
-    /* GAME TABS */
-    .game-tabs {
-      display: flex;
-      gap: 0.75rem;
-      margin-bottom: 2rem;
-      flex-wrap: wrap;
-    }
-
-    .tab-btn {
-      flex: 1 1 auto;
-      padding: 0.7rem 1.2rem;
-      border-radius: 12px;
-      border: 2px solid rgba(232, 83, 122, 0.25);
-      background: white;
-      cursor: pointer;
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--text-mid);
-      transition: all 0.2s;
-    }
-
-    .tab-btn.active {
-      background: linear-gradient(135deg, var(--rose), var(--rose-dark));
-      color: white;
-      border-color: transparent;
-      box-shadow: 0 4px 15px rgba(232, 83, 122, 0.35);
-    }
-
-    .tab-btn:hover:not(.active) {
-      border-color: var(--rose);
-      color: var(--rose);
-    }
-
-    .game-panel {
-      display: none;
-    }
-
-    .game-panel.active {
-      display: block;
-    }
-
-    /* === GAME 2: MEMORY MATCH === */
-    #memory-game-wrap {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1.5rem;
-    }
-
-    #memory-grid {
-      display: grid;
-      gap: 10px;
-    }
-
-    .mem-card {
-      width: 80px;
-      height: 80px;
-      border-radius: 14px;
-      cursor: pointer;
-      position: relative;
-      transform-style: preserve-3d;
-      transition: transform 0.45s;
-    }
-
-    .mem-card.flipped {
-      transform: rotateY(180deg);
-    }
-
-    .mem-card.matched {
-      cursor: default;
-    }
-
-    .mem-card-face {
-      position: absolute;
-      inset: 0;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-    }
-
-    .mem-card-back {
-      background: linear-gradient(135deg, var(--rose), var(--rose-dark));
-      box-shadow: 0 3px 12px rgba(192, 57, 90, 0.3);
-      font-size: 1.8rem;
-    }
-
-    .mem-card-front {
-      background: white;
-      transform: rotateY(180deg);
-      font-size: 2.2rem;
-      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
-      border: 2px solid var(--rose-light);
-    }
-
-    .mem-card.matched .mem-card-front {
-      background: linear-gradient(135deg, #fff5f7, #fce4ec);
-      border-color: var(--gold);
-      animation: card-pop 0.3s ease;
-    }
-
-    @keyframes card-pop {
-      0% {
-        transform: rotateY(180deg) scale(1)
-      }
-
-      50% {
-        transform: rotateY(180deg) scale(1.1)
-      }
-
-      100% {
-        transform: rotateY(180deg) scale(1)
-      }
-    }
-
-    #mem-controls {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .btn-outline {
-      padding: 0.7rem 1.8rem;
-      border: 2px solid var(--rose);
-      background: transparent;
-      color: var(--rose);
-      border-radius: 50px;
-      cursor: pointer;
-      font-size: 0.95rem;
-      font-weight: 600;
-      transition: all 0.2s;
-    }
-
-    .btn-outline:hover {
-      background: var(--rose);
-      color: white;
-    }
-
-    /* === GAME 3: WORD OF LOVE === */
-    #word-game-wrap {
-      text-align: center;
-    }
-
-    .word-clue {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.35rem;
-      color: var(--text-dark);
-      margin-bottom: 0.5rem;
-      font-style: italic;
-    }
-
-    .word-cat {
-      font-size: 0.85rem;
-      color: var(--rose);
-      margin-bottom: 1.8rem;
-      letter-spacing: 1px;
-    }
-
-    .word-blanks {
-      display: flex;
-      gap: 8px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-bottom: 2rem;
-    }
-
-    .letter-box {
-      width: 46px;
-      height: 56px;
-      border-bottom: 3px solid var(--rose);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: var(--text-dark);
-      transition: all 0.3s;
-    }
-
-    .letter-box.filled {
-      border-color: var(--gold);
-      background: rgba(240, 185, 67, 0.1);
-      border-bottom-style: solid;
-      border-radius: 4px;
-    }
-
-    .letter-box.wrong {
-      background: rgba(239, 68, 68, 0.1);
-      border-color: #ef4444;
-    }
-
-    .letter-choices {
-      display: flex;
-      gap: 8px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-bottom: 2rem;
-    }
-
-    .letter-choice {
-      width: 44px;
-      height: 44px;
-      border-radius: 10px;
-      border: 2px solid var(--rose-light);
-      background: white;
-      font-size: 1.2rem;
-      font-weight: 700;
-      cursor: pointer;
-      color: var(--text-dark);
-      transition: all 0.2s;
-    }
-
-    .letter-choice:hover:not(:disabled) {
-      background: var(--rose);
-      color: white;
-      border-color: var(--rose);
-      transform: scale(1.1);
-    }
-
-    .letter-choice:disabled {
-      opacity: 0.3;
-      cursor: default;
-    }
-
-    .word-feedback {
-      font-family: 'Dancing Script', cursive;
-      font-size: 1.4rem;
-      color: var(--rose-dark);
-      min-height: 2rem;
-      transition: all 0.3s;
-    }
-
-    .word-progress {
-      display: flex;
-      gap: 8px;
-      justify-content: center;
-      margin-bottom: 1.5rem;
-      flex-wrap: wrap;
-    }
-
-    .word-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: rgba(232, 83, 122, 0.2);
-      transition: background 0.3s;
-    }
-
-    .word-dot.done {
-      background: var(--rose);
-    }
-
-    .word-dot.current {
-      background: var(--gold);
-    }
-
-    /* ===================== LOVE LETTER SECTION ===================== */
-    #letter-section {
-      background: var(--warm-white);
-    }
-
-    .letter-card {
-      max-width: 680px;
-      margin: 0 auto;
-      background: white;
-      border-radius: 30px;
-      padding: 3.5rem 3rem;
-      text-align: center;
-      box-shadow: 0 8px 50px rgba(232, 83, 122, 0.15);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .letter-card::before,
-    .letter-card::after {
-      content: '';
-      position: absolute;
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      opacity: 0.06;
-      background: var(--rose);
-    }
-
-    .letter-card::before {
-      top: -80px;
-      left: -80px;
-    }
-
-    .letter-card::after {
-      bottom: -80px;
-      right: -80px;
-    }
-
-    .letter-heart {
-      font-size: 4rem;
-      display: block;
-      margin-bottom: 1rem;
-      animation: heartbeat 1.5s ease-in-out infinite;
-    }
-
-    @keyframes heartbeat {
-
-      0%,
-      100% {
-        transform: scale(1)
-      }
-
-      50% {
-        transform: scale(1.15)
-      }
-    }
-
-    .letter-card h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.8rem, 3vw, 2.5rem);
-      color: var(--text-dark);
-      margin-bottom: 1.5rem;
-    }
-
-    .letter-body {
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      color: var(--text-mid);
-      font-size: 1.05rem;
-      line-height: 1.9;
-      margin-bottom: 2rem;
-    }
-
-    .letter-sig {
-      font-family: 'Dancing Script', cursive;
-      font-size: 1.6rem;
-      color: var(--rose);
-    }
-
-    /* ===================== GIFT BOX SECTION ===================== */
-    #gift-section {
-      background: linear-gradient(135deg, #2d1b2e, #5a1a4a, #8b2252);
-      color: white;
-    }
-
-    #gift-section .section-title {
-      color: white;
-    }
-
-    #gift-section .section-sub {
-      color: rgba(255, 255, 255, 0.75);
-    }
-
-    #gift-section .section-label {
-      color: var(--gold-light);
-    }
-
-    .gifts-row {
-      display: flex;
-      gap: 1.5rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .gift-box {
-      width: 160px;
-      height: 160px;
-      border-radius: 24px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.3s;
-      position: relative;
-      overflow: hidden;
-      background: rgba(255, 255, 255, 0.1);
-      border: 2px solid rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(10px);
-    }
-
-    .gift-box:hover {
-      transform: translateY(-8px) scale(1.05);
-      box-shadow: 0 14px 40px rgba(240, 185, 67, 0.3);
-      border-color: var(--gold);
-    }
-
-    .gift-box:active {
-      transform: scale(0.95);
-    }
-
-    .gift-box .box-icon {
-      font-size: 3.5rem;
-      display: block;
-      transition: all 0.3s;
-    }
-
-    .gift-box:hover .box-icon {
-      transform: scale(1.2) rotate(10deg);
-    }
-
-    .gift-box p {
-      font-size: 0.85rem;
-      margin-top: 0.5rem;
-      color: rgba(255, 255, 255, 0.8);
-    }
-
-    .gift-box.opened {
-      border-color: var(--gold);
-      background: rgba(240, 185, 67, 0.15);
-      animation: shake 0.4s ease;
-    }
-
-    @keyframes shake {
-
-      0%,
-      100% {
-        transform: translateX(0)
-      }
-
-      25% {
-        transform: translateX(-5px)
-      }
-
-      75% {
-        transform: translateX(5px)
-      }
-    }
-
-    .gift-msg {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0);
-      background: white;
-      border-radius: 24px;
-      padding: 2.5rem;
-      max-width: 380px;
-      width: 90%;
-      text-align: center;
-      z-index: 9999;
-      box-shadow: 0 20px 80px rgba(0, 0, 0, 0.3);
-      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    .gift-msg.visible {
-      transform: translate(-50%, -50%) scale(1);
-    }
-
-    .gift-msg .gift-msg-icon {
-      font-size: 4rem;
-      display: block;
-      margin-bottom: 1rem;
-    }
-
-    .gift-msg h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.5rem;
-      color: var(--text-dark);
-      margin-bottom: 0.75rem;
-    }
-
-    .gift-msg p {
-      color: var(--text-mid);
-      line-height: 1.6;
-      margin-bottom: 1.5rem;
-    }
-
-    .gift-msg button {
-      padding: 0.7rem 2rem;
-      background: var(--rose);
-      color: white;
-      border: none;
-      border-radius: 50px;
-      cursor: pointer;
-      font-size: 0.95rem;
-      font-weight: 700;
-    }
-
-    #overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.5);
-      z-index: 9998;
-      display: none;
-    }
-
-    /* ===================== TOAST ===================== */
-    #toast {
-      position: fixed;
-      bottom: 2rem;
-      left: 50%;
-      transform: translateX(-50%) translateY(100px);
-      background: white;
-      border-radius: 16px;
-      padding: 1rem 2rem;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-      z-index: 10000;
-      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-      font-weight: 600;
-      color: var(--text-dark);
-      border-left: 5px solid var(--rose);
-      max-width: 90%;
-      text-align: center;
-    }
-
-    #toast.show {
-      transform: translateX(-50%) translateY(0);
-    }
-
-    /* ===================== SCORE POP ===================== */
-    .score-pop {
-      position: fixed;
-      font-family: 'Dancing Script', cursive;
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--gold);
-      pointer-events: none;
-      z-index: 10001;
-      animation: score-fly 1.2s ease forwards;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    }
-
-    @keyframes score-fly {
-      0% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-
-      100% {
-        opacity: 0;
-        transform: translateY(-80px) scale(1.5);
-      }
-    }
-
-    /* ===================== WIN OVERLAY ===================== */
-    #win-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(45, 27, 46, 0.92);
-      z-index: 10002;
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 2rem;
-    }
-
-    #win-overlay.active {
-      display: flex;
-    }
-
-    #win-overlay h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      color: var(--gold);
-      margin-bottom: 1rem;
-    }
-
-    #win-overlay p {
-      color: rgba(255, 255, 255, 0.85);
-      font-size: 1.1rem;
-      max-width: 500px;
-      margin-bottom: 2rem;
-      line-height: 1.7;
-    }
-
-    #win-overlay .win-icon {
-      font-size: 6rem;
-      margin-bottom: 1rem;
-      animation: heartbeat 1.5s infinite;
-    }
-
-    /* ===================== FOOTER ===================== */
-    footer {
-      background: var(--text-dark);
-      color: rgba(255, 255, 255, 0.6);
-      text-align: center;
-      padding: 2rem;
-      font-size: 0.9rem;
-      position: relative;
-      z-index: 1;
-    }
-
-    footer strong {
-      color: var(--rose-light);
-    }
-
-    /* ===================== CONFETTI ===================== */
-    .confetti-piece {
-      position: fixed;
-      width: 10px;
-      height: 14px;
-      top: -20px;
-      opacity: 0;
-      z-index: 9990;
-      border-radius: 2px;
-      animation: confetti-fall linear forwards;
-    }
-
-    @keyframes confetti-fall {
-      0% {
-        transform: translateY(0) rotate(0);
-        opacity: 1;
-      }
-
-      100% {
-        transform: translateY(110vh) rotate(720deg);
-        opacity: 0;
-      }
-    }
-
-    /* ===================== RESPONSIVE ===================== */
-    @media (max-width: 640px) {
-      .mem-card {
-        width: 64px;
-        height: 64px;
-      }
-
-      .letter-card {
-        padding: 2.5rem 1.5rem;
-      }
-
-      .gift-box {
-        width: 130px;
-        height: 130px;
-      }
-
-      .flower-btn {
-        font-size: 2rem;
-      }
-    }
-
-    /* ===================== MISC ANIMATIONS ===================== */
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --rose:#e8537a;--rose-light:#f7a8c0;--rose-dark:#c0395a;
+      --gold:#f0b943;--gold-light:#fde68a;--lavender:#c084fc;
+      --mint:#6ee7b7;--cream:#fff5f7;--warm-white:#fffbf2;
+      --text-dark:#2d1b2e;--text-mid:#5a3d5c;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'Lato',sans-serif;background:var(--cream);color:var(--text-dark);overflow-x:hidden}
+    #bg-canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0}
+
+    /* HERO */
+    #hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:1;overflow:hidden;background:linear-gradient(135deg,#2d1b2e 0%,#5a1a4a 30%,#8b2252 60%,#c0395a 100%)}
+    #hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(240,185,67,.25) 0%,transparent 60%),radial-gradient(ellipse at 100% 100%,rgba(192,132,252,.2) 0%,transparent 50%)}
+    .hero-glow{position:absolute;border-radius:50%;filter:blur(80px);animation:pulse-glow 4s ease-in-out infinite alternate}
+    .hero-glow:nth-child(1){width:400px;height:400px;background:rgba(232,83,122,.35);top:-100px;left:-80px;animation-delay:0s}
+    .hero-glow:nth-child(2){width:350px;height:350px;background:rgba(240,185,67,.25);bottom:-80px;right:-60px;animation-delay:1.5s}
+    .hero-glow:nth-child(3){width:300px;height:300px;background:rgba(192,132,252,.2);top:40%;left:50%;transform:translate(-50%,-50%);animation-delay:3s}
+    @keyframes pulse-glow{from{opacity:.6;transform:scale(1)}to{opacity:1;transform:scale(1.15)}}
+    .hero-content{position:relative;z-index:2;text-align:center;padding:2rem}
+    .badge{display:inline-block;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(10px);color:var(--gold-light);font-size:.85rem;letter-spacing:3px;text-transform:uppercase;padding:.5rem 1.5rem;border-radius:50px;margin-bottom:1.5rem;animation:fade-down .8s ease both}
+    @keyframes fade-down{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+    .hero-title{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,6vw,5rem);font-weight:700;color:#fff;line-height:1.2;margin-bottom:.5rem;animation:fade-up .9s .2s ease both}
+    .hero-title span{color:var(--gold)}
+    .hero-subtitle{font-family:'Dancing Script',cursive;font-size:clamp(1.4rem,3vw,2.2rem);color:var(--rose-light);margin-bottom:2rem;animation:fade-up .9s .4s ease both}
+    @keyframes fade-up{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+    .hero-desc{max-width:540px;color:rgba(255,255,255,.8);font-size:1.05rem;line-height:1.7;margin:0 auto 2.5rem;animation:fade-up .9s .6s ease both}
+    .btn-primary{display:inline-block;padding:1rem 2.5rem;background:linear-gradient(135deg,var(--gold),#f97316);color:var(--text-dark);font-weight:700;font-size:1.05rem;border:none;border-radius:50px;cursor:pointer;text-decoration:none;box-shadow:0 6px 30px rgba(240,185,67,.4);transition:transform .2s,box-shadow .2s;animation:fade-up .9s .8s ease both}
+    .btn-primary:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 12px 40px rgba(240,185,67,.55)}
+    .scroll-arrow{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:2;text-align:center;animation:bounce 2s infinite}
+    .scroll-arrow span{display:block;font-size:2rem;color:rgba(255,255,255,.6)}
+    @keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(10px)}}
+
+    /* PETALS */
+    .petal{position:fixed;pointer-events:none;z-index:999;font-size:1.4rem;animation:petal-fall linear infinite;opacity:.8}
+    @keyframes petal-fall{0%{transform:translateY(-50px) rotate(0deg);opacity:0}10%{opacity:.9}90%{opacity:.7}100%{transform:translateY(110vh) rotate(720deg);opacity:0}}
+
+    /* SHARED SECTION */
+    section{position:relative;z-index:1}
+    .section-wrapper{max-width:1100px;margin:0 auto;padding:5rem 1.5rem}
+    .section-label{text-align:center;font-size:.8rem;letter-spacing:4px;text-transform:uppercase;color:var(--rose);margin-bottom:.8rem}
+    .section-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);text-align:center;color:var(--text-dark);margin-bottom:1rem}
+    .section-title em{color:var(--rose);font-style:italic}
+    .section-sub{text-align:center;max-width:500px;margin:0 auto 3rem;color:var(--text-mid);line-height:1.7}
+
+    /* TRIBUTE */
+    #tribute{background:var(--warm-white)}
+    .tribute-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.5rem}
+    .tribute-card{background:#fff;border-radius:20px;padding:2rem 1.5rem;text-align:center;box-shadow:0 4px 20px rgba(232,83,122,.1);border:1px solid rgba(232,83,122,.1);transition:transform .3s,box-shadow .3s;position:relative;overflow:hidden}
+    .tribute-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--rose),var(--gold),var(--lavender))}
+    .tribute-card:hover{transform:translateY(-8px);box-shadow:0 12px 40px rgba(232,83,122,.2)}
+    .tribute-icon{font-size:3rem;margin-bottom:1rem;display:block}
+    .tribute-card h3{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--text-dark);margin-bottom:.7rem}
+    .tribute-card p{color:var(--text-mid);line-height:1.65;font-size:.95rem}
+
+    /* GAME SECTION */
+    #game-section{background:linear-gradient(180deg,#fce4ec 0%,#f8bbd9 50%,#fce4ec 100%)}
+    #game-container{background:rgba(255,255,255,.65);backdrop-filter:blur(15px);border-radius:30px;padding:2.5rem;box-shadow:0 8px 50px rgba(232,83,122,.2);border:1px solid rgba(255,255,255,.8)}
+    .game-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;padding-bottom:1.5rem;border-bottom:1px solid rgba(232,83,122,.2);margin-bottom:2rem}
+    .game-title-wrap h2{font-family:'Dancing Script',cursive;font-size:1.8rem;color:var(--rose-dark)}
+    .game-title-wrap p{font-size:.9rem;color:var(--text-mid);margin-top:.25rem}
+    .game-stats{display:flex;gap:1.5rem;flex-wrap:wrap;justify-content:flex-end}
+    .stat-box{background:linear-gradient(135deg,var(--rose),var(--rose-dark));color:#fff;border-radius:14px;padding:.6rem 1.2rem;text-align:center;min-width:90px}
+    .stat-box .stat-val{font-size:1.6rem;font-weight:700;line-height:1}
+    .stat-box .stat-label{font-size:.72rem;opacity:.85;text-transform:uppercase;letter-spacing:1px}
+    .stat-box.gold-box{background:linear-gradient(135deg,var(--gold),#f97316)}
+    .stat-box.purple-box{background:linear-gradient(135deg,var(--lavender),#9333ea)}
+    .level-bar-wrap{margin-bottom:1.5rem}
+    .level-bar-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem;font-size:.85rem;color:var(--text-mid)}
+    .level-bar-bg{background:rgba(232,83,122,.15);border-radius:50px;height:10px;overflow:hidden}
+    .level-bar-fill{height:100%;border-radius:50px;background:linear-gradient(90deg,var(--rose),var(--gold));transition:width .5s ease}
+    .game-tabs{display:flex;gap:.75rem;margin-bottom:2rem;flex-wrap:wrap}
+    .tab-btn{flex:1 1 auto;padding:.7rem 1.2rem;border-radius:12px;border:2px solid rgba(232,83,122,.25);background:white;cursor:pointer;font-size:.9rem;font-weight:600;color:var(--text-mid);transition:all .2s}
+    .tab-btn.active{background:linear-gradient(135deg,var(--rose),var(--rose-dark));color:white;border-color:transparent;box-shadow:0 4px 15px rgba(232,83,122,.35)}
+    .tab-btn:hover:not(.active){border-color:var(--rose);color:var(--rose)}
+    .game-panel{display:none}
+    .game-panel.active{display:block}
+
+    /* MEMORY MATCH */
+    #memory-game-wrap{display:flex;flex-direction:column;align-items:center;gap:1.5rem}
+    #memory-grid{display:grid;gap:10px}
+    .mem-card{width:80px;height:80px;border-radius:14px;cursor:pointer;position:relative;transform-style:preserve-3d;transition:transform .45s}
+    .mem-card.flipped{transform:rotateY(180deg)}
+    .mem-card.matched{cursor:default}
+    .mem-card-face{position:absolute;inset:0;border-radius:14px;display:flex;align-items:center;justify-content:center;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+    .mem-card-back{background:linear-gradient(135deg,var(--rose),var(--rose-dark));box-shadow:0 3px 12px rgba(192,57,90,.3);font-size:1.8rem}
+    .mem-card-front{background:white;transform:rotateY(180deg);font-size:2.2rem;box-shadow:0 3px 12px rgba(0,0,0,.12);border:2px solid var(--rose-light)}
+    .mem-card.matched .mem-card-front{background:linear-gradient(135deg,#fff5f7,#fce4ec);border-color:var(--gold);animation:card-pop .3s ease}
+    @keyframes card-pop{0%{transform:rotateY(180deg) scale(1)}50%{transform:rotateY(180deg) scale(1.1)}100%{transform:rotateY(180deg) scale(1)}}
+    #mem-controls{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center}
+    .btn-outline{padding:.7rem 1.8rem;border:2px solid var(--rose);background:transparent;color:var(--rose);border-radius:50px;cursor:pointer;font-size:.95rem;font-weight:600;transition:all .2s}
+    .btn-outline:hover{background:var(--rose);color:white}
+
+    /* ===================== FLOW CONNECT GAME ===================== */
+    #flow-game-wrap{display:flex;flex-direction:column;align-items:center;gap:1rem}
+    .flow-info{text-align:center;font-size:.95rem;color:var(--text-mid);margin-bottom:.25rem}
+    .flow-level-row{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center;margin-bottom:.5rem}
+    .flow-lvl-btn{padding:.45rem 1rem;border:2px solid rgba(232,83,122,.3);background:white;border-radius:50px;font-size:.82rem;font-weight:600;cursor:pointer;color:var(--text-mid);transition:all .2s}
+    .flow-lvl-btn.active{background:var(--rose);color:white;border-color:var(--rose)}
+    .flow-lvl-btn:hover:not(.active){border-color:var(--rose);color:var(--rose)}
+
+    #flow-canvas-wrap{position:relative;display:inline-block;border-radius:18px;overflow:hidden;box-shadow:0 6px 30px rgba(45,27,46,.15);background:#1a1a2e;cursor:crosshair}
+    #flow-canvas{display:block;touch-action:none}
+
+    .flow-status{font-family:'Dancing Script',cursive;font-size:1.3rem;color:var(--rose-dark);text-align:center;min-height:2rem}
+    .flow-meta{display:flex;gap:1.5rem;justify-content:center;font-size:.85rem;color:var(--text-mid)}
+    .flow-meta span b{color:var(--rose-dark)}
+
+    /* LETTER SECTION */
+    #letter-section{background:var(--warm-white)}
+    .letter-card{max-width:680px;margin:0 auto;background:white;border-radius:30px;padding:3.5rem 3rem;text-align:center;box-shadow:0 8px 50px rgba(232,83,122,.15);position:relative;overflow:hidden}
+    .letter-card::before,.letter-card::after{content:'';position:absolute;width:200px;height:200px;border-radius:50%;opacity:.06;background:var(--rose)}
+    .letter-card::before{top:-80px;left:-80px}
+    .letter-card::after{bottom:-80px;right:-80px}
+    .letter-heart{font-size:4rem;display:block;margin-bottom:1rem;animation:heartbeat 1.5s ease-in-out infinite}
+    @keyframes heartbeat{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
+    .letter-card h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.5rem);color:var(--text-dark);margin-bottom:1.5rem}
+    .letter-body{font-family:'Playfair Display',serif;font-style:italic;color:var(--text-mid);font-size:1.05rem;line-height:1.9;margin-bottom:2rem}
+    .letter-sig{font-family:'Dancing Script',cursive;font-size:1.6rem;color:var(--rose)}
+
+    /* GIFT SECTION */
+    #gift-section{background:linear-gradient(135deg,#2d1b2e,#5a1a4a,#8b2252);color:white}
+    #gift-section .section-title{color:white}
+    #gift-section .section-sub{color:rgba(255,255,255,.75)}
+    #gift-section .section-label{color:var(--gold-light)}
+    .gifts-row{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap}
+    .gift-box{width:160px;height:160px;border-radius:24px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;position:relative;overflow:hidden;background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.2);backdrop-filter:blur(10px)}
+    .gift-box:hover{transform:translateY(-8px) scale(1.05);box-shadow:0 14px 40px rgba(240,185,67,.3);border-color:var(--gold)}
+    .gift-box:active{transform:scale(.95)}
+    .gift-box .box-icon{font-size:3.5rem;display:block;transition:all .3s}
+    .gift-box:hover .box-icon{transform:scale(1.2) rotate(10deg)}
+    .gift-box p{font-size:.85rem;margin-top:.5rem;color:rgba(255,255,255,.8)}
+    .gift-box.opened{border-color:var(--gold);background:rgba(240,185,67,.15);animation:shake .4s ease}
+    @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+    .gift-msg{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0);background:white;border-radius:24px;padding:2.5rem;max-width:380px;width:90%;text-align:center;z-index:9999;box-shadow:0 20px 80px rgba(0,0,0,.3);transition:transform .35s cubic-bezier(.34,1.56,.64,1)}
+    .gift-msg.visible{transform:translate(-50%,-50%) scale(1)}
+    .gift-msg .gift-msg-icon{font-size:4rem;display:block;margin-bottom:1rem}
+    .gift-msg h3{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--text-dark);margin-bottom:.75rem}
+    .gift-msg p{color:var(--text-mid);line-height:1.6;margin-bottom:1.5rem}
+    .gift-msg button{padding:.7rem 2rem;background:var(--rose);color:white;border:none;border-radius:50px;cursor:pointer;font-size:.95rem;font-weight:700}
+    #overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9998;display:none}
+
+    /* TOAST */
+    #toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(100px);background:white;border-radius:16px;padding:1rem 2rem;box-shadow:0 8px 30px rgba(0,0,0,.15);z-index:10000;transition:transform .4s cubic-bezier(.34,1.56,.64,1);font-weight:600;color:var(--text-dark);border-left:5px solid var(--rose);max-width:90%;text-align:center}
+    #toast.show{transform:translateX(-50%) translateY(0)}
+    .score-pop{position:fixed;font-family:'Dancing Script',cursive;font-size:2rem;font-weight:700;color:var(--gold);pointer-events:none;z-index:10001;animation:score-fly 1.2s ease forwards;text-shadow:0 2px 10px rgba(0,0,0,.3)}
+    @keyframes score-fly{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-80px) scale(1.5)}}
+    #win-overlay{position:fixed;inset:0;background:rgba(45,27,46,.92);z-index:10002;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem}
+    #win-overlay.active{display:flex}
+    #win-overlay h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.5rem);color:var(--gold);margin-bottom:1rem}
+    #win-overlay p{color:rgba(255,255,255,.85);font-size:1.1rem;max-width:500px;margin-bottom:2rem;line-height:1.7}
+    #win-overlay .win-icon{font-size:6rem;margin-bottom:1rem;animation:heartbeat 1.5s infinite}
+    footer{background:var(--text-dark);color:rgba(255,255,255,.6);text-align:center;padding:2rem;font-size:.9rem;position:relative;z-index:1}
+    footer strong{color:var(--rose-light)}
+    .confetti-piece{position:fixed;width:10px;height:14px;top:-20px;opacity:0;z-index:9990;border-radius:2px;animation:confetti-fall linear forwards}
+    @keyframes confetti-fall{0%{transform:translateY(0) rotate(0);opacity:1}100%{transform:translateY(110vh) rotate(720deg);opacity:0}}
+
+    @media(max-width:640px){
+      .mem-card{width:64px;height:64px}
+      .letter-card{padding:2.5rem 1.5rem}
+      .gift-box{width:130px;height:130px}
+    }
+    .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
   </style>
 </head>
-
 <body>
 
-  <!-- ===================== HERO ===================== -->
-  <section id="hero">
-    <div class="hero-glow"></div>
-    <div class="hero-glow"></div>
-    <div class="hero-glow"></div>
-
-    <div class="hero-content">
-      <div class="badge">💐 Happy Mother's Day 💐</div>
-      <h1 class="hero-title">
-        Duniya Ki Sabse <span>Pyaari</span><br />Aur Khaas Maa Ko
-      </h1>
-      <p class="hero-subtitle">Dil Se Banaya Aapke Liye Ek Chhota Sa Tohfa ❤️</p>
-      <p class="hero-desc">
-        Mom, this is a small gift just for you — games, flowers, & words that can never fully express how much you mean to me.
-      </p>
-      <a href="#game-section" class="btn-primary">Apna Khaas Din Shuru Karein 🌸</a>
-    </div>
-
-    <div class="scroll-arrow"><span>↓</span></div>
-  </section>
-
-  <!-- ===================== TRIBUTE ===================== -->
-  <section id="tribute">
-    <div class="section-wrapper">
-      <p class="section-label reveal">Why You Are Amazing</p>
-      <h2 class="section-title reveal">Everything You Are, <em>Mom</em></h2>
-      <p class="section-sub reveal">Itne bade shabd nahi hain jo aapki taarif kar sakein, par yeh kuch sacchi baatein hain jo hum hamesha dil mein rakhte hain.</p>
-
-      <div class="tribute-grid">
-        <div class="tribute-card reveal">
-          <span class="tribute-icon">💪</span>
-          <h3>Sabse Mazboot Insaan</h3>
-          <p>Aap duniya ka poora bojh smile ke saath uthati hain, har mushkil ko hamare liye ek seedhi raah bana deti hain.</p>
-        </div>
-        <div class="tribute-card reveal">
-          <span class="tribute-icon">🌟</span>
-          <h3>Hamari Roshni</h3>
-          <p>Zindagi ke andheron mein aapki mohabbat chamakti hai aur hamesha hume ghar wapas le aati hai.</p>
-        </div>
-        <div class="tribute-card reveal">
-          <span class="tribute-icon">🤗</span>
-          <h3>Sabse Pyaara Gale Lagana</h3>
-          <p>Duniya mein koi hug aapke jaisa nahi. Har darr door ho jaata hai aur har khushi double ho jaati hai.</p>
-        </div>
-        <div class="tribute-card reveal">
-          <span class="tribute-icon">🍳</span>
-          <h3>Sabse Acchi Cook</h3>
-          <p>Aapke haath ka khana toh duniya ki kisi bhi restaurant mein nahi milta. Har bite mein sirf aur sirf pyaar hota hai.</p>
-        </div>
-        <div class="tribute-card reveal">
-          <span class="tribute-icon">📚</span>
-          <h3>Hamari Pehli Ustani</h3>
-          <p>Aapne chalna, bolna, sapne dekhna sikhaya — aur sabse zaroori, ek accha insaan banna sikhaya.</p>
-        </div>
-        <div class="tribute-card reveal">
-          <span class="tribute-icon">👑</span>
-          <h3>Hamari Rani</h3>
-          <p>Aap hamare dil par raaj karti hain — pyaar, sabr, aur ek aisi mohabbat ke saath jo kabhi nahi tooti.</p>
-        </div>
-        <div class="tribute-card reveal">
-          <span class="tribute-icon">🛡️</span>
-          <h3>Hamari Shanti</h3>
-          <p>Aapke paas aake har toofan chhota lag jaata hai. Aap woh jagah hain jahan hum hamesha safe feel karte hain.</p>
-        </div>
-        <div class="tribute-card reveal">
-          <span class="tribute-icon">💖</span>
-          <h3>Sone Jaisa Dil</h3>
-          <p>Aapki beintehaan mohabbat aur dusron ke baare mein sochna hume har roz ek behtar insaan banne ki inspiration deta hai.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== GAME SECTION ===================== -->
-  <section id="game-section">
-    <div class="section-wrapper">
-      <p class="section-label reveal">Sirf Aapke Liye, Maa</p>
-      <h2 class="section-title reveal">Play & <em>Celebrate</em></h2>
-      <p class="section-sub reveal">Pyaar, phoolon aur meethi baaton se bhare kuch chhote games sirf aapke liye.</p>
-
-      <div id="game-container" class="reveal">
-        <div class="game-header">
-          <div class="game-title-wrap">
-            <h2>🎮 Mom's Playtime</h2>
-            <p>Khelkar hearts kamaiye — phir apna bouquet paiye!</p>
-          </div>
-          <div class="game-stats">
-            <div class="stat-box" id="score-box">
-              <div class="stat-val" id="score-display">0</div>
-              <div class="stat-label">Dil ❤️</div>
-            </div>
-            <div class="stat-box gold-box" id="level-box">
-              <div class="stat-val" id="level-display">1</div>
-              <div class="stat-label">Level</div>
-            </div>
-            <div class="stat-box purple-box">
-              <div class="stat-val" id="streak-display">0</div>
-              <div class="stat-label">Streak</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="level-bar-wrap">
-          <div class="level-bar-top">
-            <span>Level <span id="lvl-txt">1</span></span>
-            <span id="xp-txt">0 / 20 XP</span>
-          </div>
-          <div class="level-bar-bg">
-            <div class="level-bar-fill" id="xp-bar" style="width:0%"></div>
-          </div>
-        </div>
-
-        <div class="game-tabs">
-          <button class="tab-btn active" id="tab-memory" onclick="switchTab('memory')">🧠 Yaad Ka Khel</button>
-          <button class="tab-btn" id="tab-word" onclick="switchTab('word')">💌 Pyaar Ka Shabd</button>
-        </div>
-
-        <!-- PANEL 2: MEMORY MATCH -->
-        <div class="game-panel active" id="panel-memory">
-          <div id="memory-game-wrap">
-            <p style="color:var(--text-mid);font-size:0.95rem;text-align:center;">Saare pairs milaaiye aur bonus hearts kamaiye! 💕</p>
-            <div id="memory-grid"></div>
-            <div id="mem-controls">
-              <button class="btn-outline" onclick="startMemory(4)">Aasaan (4×4)</button>
-              <button class="btn-outline" onclick="startMemory(5)">Medium (5×4)</button>
-              <button class="btn-outline" onclick="startMemory(6)">Mushkil (6×4)</button>
-            </div>
-            <p id="mem-status" style="color:var(--text-mid);font-size:0.9rem;">Shuru karne ke liye difficulty chuniye!</p>
-          </div>
-        </div>
-
-        <!-- PANEL 3: WORD OF LOVE -->
-        <div class="game-panel" id="panel-word">
-          <div id="word-game-wrap">
-            <div class="word-progress" id="word-progress"></div>
-            <p class="word-clue" id="word-clue">Load ho raha hai...</p>
-            <p class="word-cat" id="word-cat"></p>
-            <div class="word-blanks" id="word-blanks"></div>
-            <div class="letter-choices" id="letter-choices"></div>
-            <p class="word-feedback" id="word-feedback"></p>
-            <button class="btn-outline" onclick="nextWord()" id="word-next-btn" style="display:none;">Agla Shabd ➜</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== LOVE LETTER ===================== -->
-  <section id="letter-section">
-    <div class="section-wrapper">
-      <p class="section-label reveal">From The Heart</p>
-      <h2 class="section-title reveal">Maa Ke Liye Ek <em>Khat</em></h2>
-
-      <div class="letter-card reveal">
-        <span class="letter-heart">💖</span>
-        <h2>Pyaari Maa,</h2>
-        <div class="letter-body">
-          <p>Agar main aapko zindagi mein ek cheez de sakta, toh woh nazar deta jisse aap khud ko mere aankhon se dekh sakein — tabhi aapko pata chalta ki aap mere liye kitni khaas hain.</p>
-          <br />
-          <p>Aap hi woh wajah hain ki mujhe achi chezon par yakeen hai. Aapki hansi meri favorite awaaz hai. Aapki awaaz mera safe place hai. Jis tarah aap pyaar karti hain — chupke se, mazbooti se, hamesha — usne mujhe woh sab kuch banaya hai jo main hun.</p>
-          <br />
-          <p>Thank you un raaton ke liye jo aapne mere liye jaag ke guzaareen. Thank you un qurbaaniyon ke liye jo aapne kabhi zubaan par nahi laaye. Thank you har aam cheez ko khaas banane ke liye, har roz.</p>
-          <br />
-          <p>Koi card, koi gift, koi bhi shabd kabhi kaafi nahi hoga. Par mujhe umeed hai ki internet ka yeh chhota sa kona aapko yaad dilata rahe — aaj aur hamesha — ki aap deeply, completely, beintehaan pyaari hain.</p>
-        </div>
-        <p class="letter-sig">Hamesha aapka, dil se ❤️</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== GIFT BOXES ===================== -->
-  <section id="gift-section">
-    <div class="section-wrapper">
-      <p class="section-label reveal">Surprise!</p>
-      <h2 class="section-title reveal">6 Secret Gifts Sirf <em>Aapke Liye</em></h2>
-      <p class="section-sub reveal">Har box tap kariye aur ek chhupa hua pyaar ka sandesh paiye 💝</p>
-
-      <div class="gifts-row reveal" id="gifts-row"></div>
-    </div>
-  </section>
-
-  <!-- ===================== FOOTER ===================== -->
-  <footer>
-    <p>Made with <strong>infinite love by Yatin Kansal</strong> 💖 for the most wonderful mother in the universe. Happy Mother's Day! 🌸</p>
-  </footer>
-
-  <!-- ===================== OVERLAYS ===================== -->
-  <div id="overlay" onclick="closeGiftMsg()"></div>
-  <div class="gift-msg" id="gift-msg">
-    <span class="gift-msg-icon" id="gift-msg-icon"></span>
-    <h3 id="gift-msg-title"></h3>
-    <p id="gift-msg-text"></p>
-    <button onclick="closeGiftMsg()">Band Karein 💖</button>
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="badge">💐 Happy Mother's Day 💐</div>
+    <h1 class="hero-title">Duniya Ki Sabse <span>Pyaari</span><br/>Aur Khaas Maa Ko</h1>
+    <p class="hero-subtitle">Dil Se Banaya Aapke Liye Ek Chhota Sa Tohfa ❤️</p>
+    <p class="hero-desc">Mom, this is a small gift just for you — games, flowers, &amp; words that can never fully express how much you mean to me.</p>
+    <a href="#game-section" class="btn-primary">Apna Khaas Din Shuru Karein 🌸</a>
   </div>
+  <div class="scroll-arrow"><span>↓</span></div>
+</section>
 
-  <div id="toast"></div>
-
-  <div id="win-overlay">
-    <div class="win-icon">🏆</div>
-    <h2>Aap Toh Kamaal Hain, Maa!</h2>
-    <p id="win-msg"></p>
-    <button class="btn-primary" onclick="closeWin()">Jashn Jaari Rakhein 🎉</button>
+<!-- TRIBUTE -->
+<section id="tribute">
+  <div class="section-wrapper">
+    <p class="section-label reveal">Why You Are Amazing</p>
+    <h2 class="section-title reveal">Everything You Are, <em>Mom</em></h2>
+    <p class="section-sub reveal">Itne bade shabd nahi hain jo aapki taarif kar sakein, par yeh kuch sacchi baatein hain jo hum hamesha dil mein rakhte hain.</p>
+    <div class="tribute-grid">
+      <div class="tribute-card reveal"><span class="tribute-icon">💪</span><h3>Sabse Mazboot Insaan</h3><p>Aap duniya ka poora bojh smile ke saath uthati hain, har mushkil ko hamare liye ek seedhi raah bana deti hain.</p></div>
+      <div class="tribute-card reveal"><span class="tribute-icon">🌟</span><h3>Hamari Roshni</h3><p>Zindagi ke andheron mein aapki mohabbat chamakti hai aur hamesha hume ghar wapas le aati hai.</p></div>
+      <div class="tribute-card reveal"><span class="tribute-icon">🤗</span><h3>Sabse Pyaara Gale Lagana</h3><p>Duniya mein koi hug aapke jaisa nahi. Har darr door ho jaata hai aur har khushi double ho jaati hai.</p></div>
+      <div class="tribute-card reveal"><span class="tribute-icon">🍳</span><h3>Sabse Acchi Cook</h3><p>Aapke haath ka khana toh duniya ki kisi bhi restaurant mein nahi milta. Har bite mein sirf aur sirf pyaar hota hai.</p></div>
+      <div class="tribute-card reveal"><span class="tribute-icon">📚</span><h3>Hamari Pehli Ustani</h3><p>Aapne chalna, bolna, sapne dekhna sikhaya — aur sabse zaroori, ek accha insaan banna sikhaya.</p></div>
+      <div class="tribute-card reveal"><span class="tribute-icon">👑</span><h3>Hamari Rani</h3><p>Aap hamare dil par raaj karti hain — pyaar, sabr, aur ek aisi mohabbat ke saath jo kabhi nahi tooti.</p></div>
+      <div class="tribute-card reveal"><span class="tribute-icon">🛡️</span><h3>Hamari Shanti</h3><p>Aapke paas aake har toofan chhota lag jaata hai. Aap woh jagah hain jahan hum hamesha safe feel karte hain.</p></div>
+      <div class="tribute-card reveal"><span class="tribute-icon">💖</span><h3>Sone Jaisa Dil</h3><p>Aapki beintehaan mohabbat aur dusron ke baare mein sochna hume har roz ek behtar insaan banne ki inspiration deta hai.</p></div>
+    </div>
   </div>
+</section>
 
-  <!-- CANVAS for floating particles -->
-  <canvas id="bg-canvas"></canvas>
+<!-- GAME SECTION -->
+<section id="game-section">
+  <div class="section-wrapper">
+    <p class="section-label reveal">Sirf Aapke Liye, Maa</p>
+    <h2 class="section-title reveal">Play &amp; <em>Celebrate</em></h2>
+    <p class="section-sub reveal">Pyaar, phoolon aur meethi baaton se bhare kuch chhote games sirf aapke liye.</p>
 
-  <script>
-    /* ===================================================================
-       FLOATING PETAL SYSTEM
-    =================================================================== */
-    const PETALS = ['🌸', '🌺', '🌷', '🌹', '💮', '🏵️', '💐', '🌼', '🌻'];
-    function spawnPetal() {
-      const el = document.createElement('div');
-      el.className = 'petal';
-      el.textContent = PETALS[Math.floor(Math.random() * PETALS.length)];
-      el.style.left = Math.random() * 100 + 'vw';
-      el.style.fontSize = (0.8 + Math.random() * 1.2) + 'rem';
-      const dur = 6 + Math.random() * 8;
-      el.style.animationDuration = dur + 's';
-      el.style.animationDelay = (-Math.random() * dur) + 's';
-      document.body.appendChild(el);
-      setTimeout(() => el.remove(), (dur + 1) * 1000);
+    <div id="game-container" class="reveal">
+      <div class="game-header">
+        <div class="game-title-wrap">
+          <h2>🎮 Mom's Playtime</h2>
+          <p>Khelkar hearts kamaiye — phir apna bouquet paiye!</p>
+        </div>
+        <div class="game-stats">
+          <div class="stat-box" id="score-box"><div class="stat-val" id="score-display">0</div><div class="stat-label">Dil ❤️</div></div>
+          <div class="stat-box gold-box" id="level-box"><div class="stat-val" id="level-display">1</div><div class="stat-label">Level</div></div>
+          <div class="stat-box purple-box"><div class="stat-val" id="streak-display">0</div><div class="stat-label">Streak</div></div>
+        </div>
+      </div>
+
+      <div class="level-bar-wrap">
+        <div class="level-bar-top"><span>Level <span id="lvl-txt">1</span></span><span id="xp-txt">0 / 20 XP</span></div>
+        <div class="level-bar-bg"><div class="level-bar-fill" id="xp-bar" style="width:0%"></div></div>
+      </div>
+
+      <div class="game-tabs">
+        <button class="tab-btn active" id="tab-memory" onclick="switchTab('memory')">🧠 Yaad Ka Khel</button>
+        <button class="tab-btn" id="tab-flow" onclick="switchTab('flow')">🌈 Rang Milao</button>
+      </div>
+
+      <!-- PANEL: MEMORY MATCH -->
+      <div class="game-panel active" id="panel-memory">
+        <div id="memory-game-wrap">
+          <p style="color:var(--text-mid);font-size:.95rem;text-align:center;">Saare pairs milaaiye aur bonus hearts kamaiye! 💕</p>
+          <div id="memory-grid"></div>
+          <div id="mem-controls">
+            <button class="btn-outline" onclick="startMemory(4)">Aasaan (4×4)</button>
+            <button class="btn-outline" onclick="startMemory(5)">Medium (5×4)</button>
+            <button class="btn-outline" onclick="startMemory(6)">Mushkil (6×4)</button>
+          </div>
+          <p id="mem-status" style="color:var(--text-mid);font-size:.9rem;">Shuru karne ke liye difficulty chuniye!</p>
+        </div>
+      </div>
+
+      <!-- PANEL: FLOW CONNECT -->
+      <div class="game-panel" id="panel-flow">
+        <div id="flow-game-wrap">
+          <p class="flow-info">Same rang ke dots ko connect kariye — grid poora bharna hai! 🎨</p>
+          <div class="flow-level-row" id="flow-level-row"></div>
+          <div id="flow-canvas-wrap">
+            <canvas id="flow-canvas"></canvas>
+          </div>
+          <p class="flow-status" id="flow-status">Level chuniye aur khelna shuru kariye! ✨</p>
+          <div class="flow-meta">
+            <span>Moves: <b id="flow-moves">0</b></span>
+            <span>Pairs Jode: <b id="flow-pairs">0</b> / <b id="flow-total">0</b></span>
+          </div>
+          <button class="btn-outline" onclick="flowReset()" id="flow-reset-btn" style="margin-top:.5rem">🔄 Reset</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOVE LETTER -->
+<section id="letter-section">
+  <div class="section-wrapper">
+    <p class="section-label reveal">From The Heart</p>
+    <h2 class="section-title reveal">Maa Ke Liye Ek <em>Khat</em></h2>
+    <div class="letter-card reveal">
+      <span class="letter-heart">💖</span>
+      <h2>Pyaari Maa,</h2>
+      <div class="letter-body">
+        <p>Agar main aapko zindagi mein ek cheez de sakta, toh woh nazar deta jisse aap khud ko mere aankhon se dekh sakein — tabhi aapko pata chalta ki aap mere liye kitni khaas hain.</p>
+        <br/>
+        <p>Aap hi woh wajah hain ki mujhe achi chezon par yakeen hai. Aapki hansi meri favorite awaaz hai. Aapki awaaz mera safe place hai. Jis tarah aap pyaar karti hain — chupke se, mazbooti se, hamesha — usne mujhe woh sab kuch banaya hai jo main hun.</p>
+        <br/>
+        <p>Thank you un raaton ke liye jo aapne mere liye jaag ke guzaareen. Thank you un qurbaaniyon ke liye jo aapne kabhi zubaan par nahi laaye. Thank you har aam cheez ko khaas banane ke liye, har roz.</p>
+        <br/>
+        <p>Koi card, koi gift, koi bhi shabd kabhi kaafi nahi hoga. Par mujhe umeed hai ki internet ka yeh chhota sa kona aapko yaad dilata rahe — aaj aur hamesha — ki aap deeply, completely, beintehaan pyaari hain.</p>
+      </div>
+      <p class="letter-sig">Hamesha aapka, dil se ❤️</p>
+    </div>
+  </div>
+</section>
+
+<!-- GIFT BOXES -->
+<section id="gift-section">
+  <div class="section-wrapper">
+    <p class="section-label reveal">Surprise!</p>
+    <h2 class="section-title reveal">6 Secret Gifts Sirf <em>Aapke Liye</em></h2>
+    <p class="section-sub reveal">Har box tap kariye aur ek chhupa hua pyaar ka sandesh paiye 💝</p>
+    <div class="gifts-row reveal" id="gifts-row"></div>
+  </div>
+</section>
+
+<footer><p>Made with <strong>infinite love by Yatin Kansal</strong> 💖 for the most wonderful mother in the universe. Happy Mother's Day! 🌸</p></footer>
+
+<div id="overlay" onclick="closeGiftMsg()"></div>
+<div class="gift-msg" id="gift-msg">
+  <span class="gift-msg-icon" id="gift-msg-icon"></span>
+  <h3 id="gift-msg-title"></h3>
+  <p id="gift-msg-text"></p>
+  <button onclick="closeGiftMsg()">Band Karein 💖</button>
+</div>
+<div id="toast"></div>
+<div id="win-overlay">
+  <div class="win-icon">🏆</div>
+  <h2>Aap Toh Kamaal Hain, Maa!</h2>
+  <p id="win-msg"></p>
+  <button class="btn-primary" onclick="closeWin()">Jashn Jaari Rakhein 🎉</button>
+</div>
+<canvas id="bg-canvas"></canvas>
+
+<script>
+/* ===== PETALS ===== */
+const PETALS=['🌸','🌺','🌷','🌹','💮','🏵️','💐','🌼','🌻'];
+function spawnPetal(){
+  const el=document.createElement('div');el.className='petal';
+  el.textContent=PETALS[Math.floor(Math.random()*PETALS.length)];
+  el.style.left=Math.random()*100+'vw';
+  el.style.fontSize=(0.8+Math.random()*1.2)+'rem';
+  const dur=6+Math.random()*8;
+  el.style.animationDuration=dur+'s';
+  el.style.animationDelay=(-Math.random()*dur)+'s';
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(),(dur+1)*1000);
+}
+setInterval(spawnPetal,700);
+for(let i=0;i<12;i++)spawnPetal();
+
+/* ===== BG CANVAS ===== */
+const canvas=document.getElementById('bg-canvas'),ctx=canvas.getContext('2d');
+let W,H,particles=[];
+function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;}
+window.addEventListener('resize',resize);resize();
+class Particle{constructor(){this.reset();}reset(){this.x=Math.random()*W;this.y=Math.random()*H;this.r=1+Math.random()*2;this.sp=0.1+Math.random()*0.4;this.op=Math.random();this.tw=0.005+Math.random()*0.01;this.hue=[350,340,30,280][Math.floor(Math.random()*4)];}update(){this.y-=this.sp;this.op+=this.tw;if(this.op>1||this.y<0)this.reset();}draw(){ctx.save();ctx.globalAlpha=Math.abs(Math.sin(this.op));ctx.fillStyle=`hsl(${this.hue},80%,75%)`;ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);ctx.fill();ctx.restore();}}
+for(let i=0;i<100;i++)particles.push(new Particle());
+(function loop(){ctx.clearRect(0,0,W,H);particles.forEach(p=>{p.update();p.draw();});requestAnimationFrame(loop);})();
+
+/* ===== REVEAL ===== */
+const reveals=document.querySelectorAll('.reveal');
+const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}});},{threshold:0.1});
+reveals.forEach(r=>io.observe(r));
+
+/* ===== SCORE SYSTEM ===== */
+let score=0,level=1,xp=0,streak=0;
+const XP_PER_LEVEL=20;
+function addScore(pts,el){
+  score+=pts;xp+=pts;streak++;
+  if(streak>0&&streak%5===0){addScore(5,null);showToast(`🔥 ${streak} Streak BONUS! +5 ❤️`);}
+  while(xp>=XP_PER_LEVEL){xp-=XP_PER_LEVEL;level++;showToast(`🌟 Level Up! Ab aap Level ${level} par hain!`);}
+  updateUI();
+  if(el){
+    const pop=document.createElement('div');pop.className='score-pop';pop.textContent=`+${pts} ❤️`;
+    const rect=el.getBoundingClientRect();
+    pop.style.left=(rect.left+rect.width/2)+'px';pop.style.top=rect.top+'px';
+    document.body.appendChild(pop);setTimeout(()=>pop.remove(),1300);
+  }
+}
+function updateUI(){
+  document.getElementById('score-display').textContent=score;
+  document.getElementById('level-display').textContent=level;
+  document.getElementById('streak-display').textContent=streak;
+  document.getElementById('lvl-txt').textContent=level;
+  document.getElementById('xp-txt').textContent=`${xp} / ${XP_PER_LEVEL} XP`;
+  document.getElementById('xp-bar').style.width=(xp/XP_PER_LEVEL*100)+'%';
+}
+
+/* ===== TOAST ===== */
+let toastTimer;
+function showToast(msg){
+  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
+  clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+/* ===== TABS ===== */
+function switchTab(tab){
+  document.querySelectorAll('.game-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('panel-'+tab).classList.add('active');
+  document.getElementById('tab-'+tab).classList.add('active');
+  if(tab==='flow'&&!flowInitialized){initFlow();}
+}
+
+/* ===== MEMORY MATCH ===== */
+const MEMORY_EMOJIS=['💖','🌸','🎀','👑','🌺','🌹','💐','🌼','🩷','🌷','🤍','💝'];
+let memCards=[],memFlipped=[],memMatched=0,memLocked=false,memMoves=0,memCols=4;
+function startMemory(cols){
+  memCols=cols;memFlipped=[];memMatched=0;memMoves=0;memLocked=false;
+  const rows=4,pairs=(cols*rows)/2;
+  const chosen=MEMORY_EMOJIS.slice(0,pairs);
+  memCards=shuffle([...chosen,...chosen]);
+  renderMemory();
+  document.getElementById('mem-status').textContent=`Moves: 0 | Milaaye: 0 / ${pairs}`;
+}
+function shuffle(arr){return arr.sort(()=>Math.random()-0.5);}
+function renderMemory(){
+  const g=document.getElementById('memory-grid');g.innerHTML='';
+  g.style.gridTemplateColumns=`repeat(${memCols}, 80px)`;
+  memCards.forEach((emoji,i)=>{
+    const card=document.createElement('div');card.className='mem-card';
+    card.innerHTML=`<div class="mem-card-face mem-card-back">💖</div><div class="mem-card-face mem-card-front">${emoji}</div>`;
+    card.onclick=()=>flipCard(card,i,emoji);g.appendChild(card);
+  });
+}
+function flipCard(card,idx,emoji){
+  if(memLocked||card.classList.contains('flipped')||card.classList.contains('matched'))return;
+  card.classList.add('flipped');memFlipped.push({card,idx,emoji});
+  if(memFlipped.length===2){
+    memMoves++;memLocked=true;
+    const[a,b]=memFlipped;
+    if(a.emoji===b.emoji){
+      a.card.classList.add('matched');b.card.classList.add('matched');memMatched++;
+      memFlipped=[];memLocked=false;
+      const pairs=(memCols*4)/2;
+      addScore(3,b.card);
+      document.getElementById('mem-status').textContent=`Moves: ${memMoves} | Milaaye: ${memMatched} / ${pairs}`;
+      if(memMatched===pairs){setTimeout(()=>{addScore(15,null);launchConfetti();showWin(`🧠 Kamaal! Aapne saare ${pairs} pairs sirf ${memMoves} moves mein milaa diye! 15 bonus hearts miley!`);},500);}
+    }else{
+      setTimeout(()=>{a.card.classList.remove('flipped');b.card.classList.remove('flipped');memFlipped=[];memLocked=false;streak=Math.max(0,streak-1);updateUI();},900);
     }
-    setInterval(spawnPetal, 700);
-    for (let i = 0; i < 12; i++) spawnPetal();
+  }
+}
 
-    /* ===================================================================
-       CANVAS PARTICLE SYSTEM (stars / hearts)
-    =================================================================== */
-    const canvas = document.getElementById('bg-canvas');
-    const ctx = canvas.getContext('2d');
-    let W, H, particles = [];
+/* =================================================================
+   FLOW CONNECT GAME
+================================================================= */
+const FLOW_COLORS=[
+  {name:'rose',   hex:'#e8537a', dark:'#c0395a'},
+  {name:'gold',   hex:'#f0b943', dark:'#c98b00'},
+  {name:'purple', hex:'#c084fc', dark:'#9333ea'},
+  {name:'teal',   hex:'#2dd4bf', dark:'#0f766e'},
+  {name:'blue',   hex:'#60a5fa', dark:'#1d4ed8'},
+  {name:'green',  hex:'#4ade80', dark:'#15803d'},
+  {name:'orange', hex:'#fb923c', dark:'#c2410c'},
+  {name:'pink',   hex:'#f472b6', dark:'#be185d'},
+];
 
-    function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
-    window.addEventListener('resize', resize); resize();
+/* Levels: each level = {cols, rows, dots:[{color_idx, r, c},...] pairs */
+const FLOW_LEVELS=[
+  /* Level 1 – 5×5, 4 colors */
+  {cols:5,rows:5,dots:[
+    {ci:0,r:0,c:0},{ci:0,r:4,c:4},
+    {ci:1,r:0,c:4},{ci:1,r:4,c:0},
+    {ci:2,r:0,c:2},{ci:2,r:4,c:2},
+    {ci:3,r:2,c:0},{ci:3,r:2,c:4},
+  ]},
+  /* Level 2 – 6×6, 5 colors */
+  {cols:6,rows:6,dots:[
+    {ci:0,r:0,c:0},{ci:0,r:5,c:5},
+    {ci:1,r:0,c:5},{ci:1,r:5,c:0},
+    {ci:2,r:0,c:2},{ci:2,r:3,c:5},
+    {ci:3,r:2,c:1},{ci:3,r:5,c:4},
+    {ci:4,r:1,c:4},{ci:4,r:4,c:1},
+  ]},
+  /* Level 3 – 7×7, 6 colors */
+  {cols:7,rows:7,dots:[
+    {ci:0,r:0,c:0},{ci:0,r:6,c:6},
+    {ci:1,r:0,c:6},{ci:1,r:6,c:0},
+    {ci:2,r:0,c:3},{ci:2,r:6,c:3},
+    {ci:3,r:3,c:0},{ci:3,r:3,c:6},
+    {ci:4,r:1,c:2},{ci:4,r:5,c:4},
+    {ci:5,r:1,c:5},{ci:5,r:5,c:2},
+  ]},
+  /* Level 4 – 8×8, 7 colors */
+  {cols:8,rows:8,dots:[
+    {ci:0,r:0,c:0},{ci:0,r:7,c:7},
+    {ci:1,r:0,c:7},{ci:1,r:7,c:0},
+    {ci:2,r:0,c:3},{ci:2,r:4,c:7},
+    {ci:3,r:0,c:5},{ci:3,r:7,c:3},
+    {ci:4,r:2,c:0},{ci:4,r:6,c:5},
+    {ci:5,r:2,c:6},{ci:5,r:6,c:1},
+    {ci:6,r:3,c:3},{ci:6,r:5,c:4},
+  ]},
+];
 
-    class Particle {
-      constructor() { this.reset(); }
-      reset() {
-        this.x = Math.random() * W;
-        this.y = Math.random() * H;
-        this.r = 1 + Math.random() * 2;
-        this.sp = 0.1 + Math.random() * 0.4;
-        this.op = Math.random();
-        this.tw = 0.005 + Math.random() * 0.01;
-        this.hue = [350, 340, 30, 280][Math.floor(Math.random() * 4)];
-      }
-      update() {
-        this.y -= this.sp;
-        this.op += this.tw;
-        if (this.op > 1 || this.y < 0) this.reset();
-      }
-      draw() {
-        ctx.save();
-        ctx.globalAlpha = Math.abs(Math.sin(this.op));
-        ctx.fillStyle = `hsl(${this.hue},80%,75%)`;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.restore();
-      }
+let flowInitialized=false;
+let FC={
+  level:0, cols:0, rows:0, cellSize:0,
+  dots:[],      // {ci, r, c}
+  paths:[],     // paths[ci] = [{r,c},...] or null
+  active:null,  // {ci, path:[{r,c},...]}
+  completed:new Set(),
+  moves:0,
+  canvas:null, ctx:null,
+  dragging:false
+};
+
+function initFlow(){
+  flowInitialized=true;
+  buildFlowLevelBtns();
+  loadFlowLevel(0);
+}
+
+function buildFlowLevelBtns(){
+  const row=document.getElementById('flow-level-row');
+  row.innerHTML='';
+  FLOW_LEVELS.forEach((lv,i)=>{
+    const b=document.createElement('button');
+    b.className='flow-lvl-btn'+(i===0?' active':'');
+    b.textContent=`Level ${i+1}`;
+    b.onclick=()=>{
+      document.querySelectorAll('.flow-lvl-btn').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+      loadFlowLevel(i);
+    };
+    row.appendChild(b);
+  });
+}
+
+function loadFlowLevel(idx){
+  FC.level=idx;
+  const lv=FLOW_LEVELS[idx];
+  FC.cols=lv.cols; FC.rows=lv.rows;
+  FC.dots=lv.dots;
+  FC.paths=new Array(FLOW_COLORS.length).fill(null).map(()=>null);
+  FC.active=null;
+  FC.completed=new Set();
+  FC.moves=0;
+  FC.dragging=false;
+
+  const maxW=Math.min(480, window.innerWidth-80);
+  FC.cellSize=Math.floor(maxW/FC.cols);
+  const W=FC.cellSize*FC.cols, H=FC.cellSize*FC.rows;
+
+  const cvs=document.getElementById('flow-canvas');
+  FC.canvas=cvs; FC.ctx=cvs.getContext('2d');
+  cvs.width=W; cvs.height=H;
+
+  /* Attach events once */
+  if(!FC._eventsAttached){
+    FC._eventsAttached=true;
+    cvs.addEventListener('mousedown', flowPointerDown);
+    cvs.addEventListener('mousemove', flowPointerMove);
+    cvs.addEventListener('mouseup',   flowPointerUp);
+    cvs.addEventListener('touchstart', e=>{e.preventDefault();flowPointerDown(e.touches[0]);},{passive:false});
+    cvs.addEventListener('touchmove',  e=>{e.preventDefault();flowPointerMove(e.touches[0]);},{passive:false});
+    cvs.addEventListener('touchend',   e=>{e.preventDefault();flowPointerUp(e.changedTouches[0]);},{passive:false});
+  }
+
+  updateFlowUI();
+  drawFlow();
+}
+
+function cellFromEvent(e){
+  const rect=FC.canvas.getBoundingClientRect();
+  const x=e.clientX-rect.left, y=e.clientY-rect.top;
+  const c=Math.floor(x/FC.cellSize), r=Math.floor(y/FC.cellSize);
+  if(r<0||r>=FC.rows||c<0||c>=FC.cols)return null;
+  return {r,c};
+}
+
+function dotAt(r,c){
+  return FC.dots.find(d=>d.r===r&&d.c===c)||null;
+}
+
+function flowPointerDown(e){
+  const cell=cellFromEvent(e);if(!cell)return;
+  const dot=dotAt(cell.r,cell.c);
+  if(!dot)return;
+  FC.dragging=true;
+  /* Clear existing path for this color */
+  FC.paths[dot.ci]=null;
+  FC.completed.delete(dot.ci);
+  FC.active={ci:dot.ci, path:[{r:cell.r,c:cell.c}]};
+  FC.moves++;
+  drawFlow();
+}
+
+function flowPointerMove(e){
+  if(!FC.dragging||!FC.active)return;
+  const cell=cellFromEvent(e);if(!cell)return;
+  const path=FC.active.path;
+  const last=path[path.length-1];
+  if(last.r===cell.r&&last.c===cell.c)return;
+  /* Must be adjacent */
+  if(Math.abs(cell.r-last.r)+Math.abs(cell.c-last.c)!==1)return;
+  /* Check if we're backtracking */
+  const bIdx=path.findIndex(p=>p.r===cell.r&&p.c===cell.c);
+  if(bIdx!==-1){
+    FC.active.path=path.slice(0,bIdx+1);
+    drawFlow();return;
+  }
+  /* Can't cross another completed path (different color) */
+  for(const [ci,p] of Object.entries(FC.paths)){
+    if(p&&parseInt(ci)!==FC.active.ci){
+      if(p.some(pp=>pp.r===cell.r&&pp.c===cell.c)){return;}
     }
+  }
+  /* Can't cross own dot endpoints that aren't start */
+  const otherDot=dotAt(cell.r,cell.c);
+  if(otherDot&&otherDot.ci!==FC.active.ci)return;
+  path.push({r:cell.r,c:cell.c});
+  /* Check completion: landed on matching partner dot */
+  if(otherDot&&otherDot.ci===FC.active.ci&&path.length>1){
+    FC.paths[FC.active.ci]=[...path];
+    FC.completed.add(FC.active.ci);
+    FC.active=null; FC.dragging=false;
+    updateFlowUI();
+    checkFlowWin();
+    addScore(5,FC.canvas);
+  }
+  drawFlow();
+}
 
-    for (let i = 0; i < 100; i++) particles.push(new Particle());
+function flowPointerUp(e){
+  if(FC.active&&FC.dragging){
+    /* Save partial path */
+    FC.paths[FC.active.ci]=[...FC.active.path];
+  }
+  FC.active=null; FC.dragging=false;
+  drawFlow();
+}
 
-    (function loop() {
-      ctx.clearRect(0, 0, W, H);
-      particles.forEach(p => { p.update(); p.draw(); });
-      requestAnimationFrame(loop);
-    })();
+function flowReset(){loadFlowLevel(FC.level);}
 
-    /* ===================================================================
-       REVEAL ON SCROLL
-    =================================================================== */
-    const reveals = document.querySelectorAll('.reveal');
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
-    }, { threshold: 0.1 });
-    reveals.forEach(r => io.observe(r));
+function updateFlowUI(){
+  const numColors=new Set(FC.dots.map(d=>d.ci)).size;
+  document.getElementById('flow-moves').textContent=FC.moves;
+  document.getElementById('flow-pairs').textContent=FC.completed.size;
+  document.getElementById('flow-total').textContent=numColors;
+  document.getElementById('flow-status').textContent=
+    FC.completed.size===0?'Dots ko connect kariye! Drag karke lines khenchiye 🎨':
+    FC.completed.size===numColors?'🎉 Poora ho gaya! Kamaal!':
+    `${FC.completed.size} / ${numColors} pairs connected! Jaari rakhiye! 💪`;
+}
 
-    /* ===================================================================
-       GLOBAL SCORE / LEVEL SYSTEM
-    =================================================================== */
-    let score = 0, level = 1, xp = 0, streak = 0;
-    const XP_PER_LEVEL = 20;
+function checkFlowWin(){
+  const numColors=new Set(FC.dots.map(d=>d.ci)).size;
+  if(FC.completed.size===numColors){
+    setTimeout(()=>{
+      addScore(20,null);
+      launchConfetti();
+      showWin(`🌈 Aapne saare rang sirf ${FC.moves} moves mein jod diye! +20 bonus hearts! Maa aap toh game ki queen hain!`);
+    },400);
+  }
+}
 
-    function addScore(pts, el) {
-      score += pts; xp += pts; streak++;
-      if (streak > 0 && streak % 5 === 0) { addScore(5, null); showToast(`🔥 ${streak} Streak BONUS! +5 ❤️`); }
-      while (xp >= XP_PER_LEVEL) { xp -= XP_PER_LEVEL; level++; showToast(`🌟 Level Up! Ab aap Level ${level} par hain!`); }
-      updateUI();
-      if (el) {
-        const pop = document.createElement('div');
-        pop.className = 'score-pop';
-        pop.textContent = `+${pts} ❤️`;
-        const rect = el.getBoundingClientRect();
-        pop.style.left = (rect.left + rect.width / 2) + 'px';
-        pop.style.top = rect.top + 'px';
-        document.body.appendChild(pop);
-        setTimeout(() => pop.remove(), 1300);
-      }
+function drawFlow(){
+  const {ctx,cellSize,cols,rows,dots,paths,active,completed}=FC;
+  const W=cellSize*cols, H=cellSize*rows;
+  ctx.clearRect(0,0,W,H);
+
+  /* Grid */
+  ctx.strokeStyle='rgba(255,255,255,0.08)';
+  ctx.lineWidth=1;
+  for(let r=0;r<=rows;r++){ctx.beginPath();ctx.moveTo(0,r*cellSize);ctx.lineTo(W,r*cellSize);ctx.stroke();}
+  for(let c=0;c<=cols;c++){ctx.beginPath();ctx.moveTo(c*cellSize,0);ctx.lineTo(c*cellSize,H);ctx.stroke();}
+
+  /* Draw completed + partial paths */
+  function drawPath(path,ci,alpha){
+    if(!path||path.length<2)return;
+    const color=FLOW_COLORS[ci];
+    ctx.save();
+    ctx.globalAlpha=alpha;
+    ctx.strokeStyle=color.hex;
+    ctx.lineWidth=cellSize*0.38;
+    ctx.lineCap='round';
+    ctx.lineJoin='round';
+    ctx.beginPath();
+    ctx.moveTo(path[0].c*cellSize+cellSize/2, path[0].r*cellSize+cellSize/2);
+    for(let i=1;i<path.length;i++){
+      ctx.lineTo(path[i].c*cellSize+cellSize/2, path[i].r*cellSize+cellSize/2);
     }
+    ctx.stroke();
+    ctx.restore();
+  }
 
-    function updateUI() {
-      document.getElementById('score-display').textContent = score;
-      document.getElementById('level-display').textContent = level;
-      document.getElementById('streak-display').textContent = streak;
-      document.getElementById('lvl-txt').textContent = level;
-      document.getElementById('xp-txt').textContent = `${xp} / ${XP_PER_LEVEL} XP`;
-      document.getElementById('xp-bar').style.width = (xp / XP_PER_LEVEL * 100) + '%';
+  /* Saved paths */
+  paths.forEach((p,ci)=>{
+    if(p)drawPath(p,ci,completed.has(ci)?1:0.6);
+  });
+  /* Active dragging path */
+  if(active)drawPath(active.path,active.ci,0.85);
+
+  /* Draw dots */
+  dots.forEach(d=>{
+    const color=FLOW_COLORS[d.ci];
+    const cx=d.c*cellSize+cellSize/2, cy=d.r*cellSize+cellSize/2;
+    const r=cellSize*0.32;
+    /* Outer ring */
+    ctx.save();
+    ctx.beginPath();ctx.arc(cx,cy,r+3,0,Math.PI*2);
+    ctx.fillStyle='rgba(255,255,255,0.15)';ctx.fill();
+    /* Main dot */
+    ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);
+    ctx.fillStyle=color.hex;ctx.fill();
+    /* Inner shine */
+    ctx.beginPath();ctx.arc(cx-r*0.25,cy-r*0.25,r*0.3,0,Math.PI*2);
+    ctx.fillStyle='rgba(255,255,255,0.5)';ctx.fill();
+    /* Completed ring */
+    if(completed.has(d.ci)){
+      ctx.strokeStyle='#ffffff';ctx.lineWidth=2.5;
+      ctx.beginPath();ctx.arc(cx,cy,r+5,0,Math.PI*2);ctx.stroke();
     }
+    ctx.restore();
+  });
+}
 
-    /* ===================================================================
-       TOAST
-    =================================================================== */
-    let toastTimer;
-    function showToast(msg) {
-      const t = document.getElementById('toast');
-      t.textContent = msg; t.classList.add('show');
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
-    }
+/* ===== GIFT BOXES ===== */
+const GIFTS=[
+  {icon:'🌹',title:'Gulaabon Ka Bagicha',text:'Socho ek bagicha jahan sabse khoobsurat gulaab sirf aapke liye khile hon. Aisi hi khoobsurati se bhari hai meri zindagi — kyunki aap hain isme.'},
+  {icon:'⭐',title:'Aap Hain Mera Sitaara',text:'Jab main taaron ko dekhta hun, toh aap yaad aati hain. Aap mere duniya ke andheron ko roshan karti hain aur hamesha ghar wapas laati hain.'},
+  {icon:'🍰',title:'Aap Jaisi Meethi',text:'Duniya mein kuch bhi aapki mohabbat jaisa meetha nahi. Na cake, na mithai, kuch bhi nahi. Thank you meri zindagi ka sabse meetha hissa banne ke liye.'},
+  {icon:'🎵',title:'Hamara Gaana',text:'"Tum mere jeevan ki roshni ho" — pyaar par likha har gaana asal mein aapke baare mein hi likha gaya hai, Maa. Aap meri favorite dhun hain.'},
+  {icon:'🌙',title:'Har Jaagi Raat',text:'Jab bhi aap raat ko mere liye jaag kar baithe, main aapke kaaran safe tha. Jaaniye ki aapki qurbaaniyan kabhi bhi unnoticed nahi rahi, kabhi nahi.'},
+  {icon:'🦋',title:'Aapne Mujhe Udna Sikhaya',text:'Aapne mujhe itne mazboot pankh diye ki main ud sakun, aur itna himmatwala dil ki main oopar jaata rahun. Jo kuch bhi hun main, woh sab aapki wajah se hun.'},
+];
+const giftRow=document.getElementById('gifts-row');
+GIFTS.forEach((g,i)=>{
+  const box=document.createElement('div');box.className='gift-box';
+  box.innerHTML=`<span class="box-icon">${g.icon}</span><p>Kholiye Mujhe!</p>`;
+  box.onclick=function(){
+    box.classList.add('opened');box.querySelector('p').textContent='💖';
+    addScore(5,box);openGift(g);launchMiniConfetti(box);
+  };
+  giftRow.appendChild(box);
+});
+function openGift(g){
+  document.getElementById('gift-msg-icon').textContent=g.icon;
+  document.getElementById('gift-msg-title').textContent=g.title;
+  document.getElementById('gift-msg-text').textContent=g.text;
+  document.getElementById('gift-msg').classList.add('visible');
+  document.getElementById('overlay').style.display='block';
+}
+function closeGiftMsg(){
+  document.getElementById('gift-msg').classList.remove('visible');
+  document.getElementById('overlay').style.display='none';
+}
 
-    /* ===================================================================
-       TAB SWITCHING
-    =================================================================== */
-    function switchTab(tab) {
-      document.querySelectorAll('.game-panel').forEach(p => p.classList.remove('active'));
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      document.getElementById('panel-' + tab).classList.add('active');
-      document.getElementById('tab-' + tab).classList.add('active');
-    }
+/* ===== CONFETTI ===== */
+const CONFETTI_COLORS=['#e8537a','#f0b943','#c084fc','#6ee7b7','#f97316','#38bdf8'];
+function launchConfetti(){
+  for(let i=0;i<80;i++){
+    const el=document.createElement('div');el.className='confetti-piece';
+    el.style.left=Math.random()*100+'vw';
+    el.style.background=CONFETTI_COLORS[Math.floor(Math.random()*CONFETTI_COLORS.length)];
+    el.style.borderRadius=Math.random()>.5?'50%':'2px';
+    el.style.width=(6+Math.random()*10)+'px';el.style.height=(10+Math.random()*16)+'px';
+    el.style.animationDuration=(2+Math.random()*3)+'s';el.style.animationDelay=Math.random()*1+'s';
+    document.body.appendChild(el);setTimeout(()=>el.remove(),5000);
+  }
+}
+function launchMiniConfetti(el){
+  const rect=el.getBoundingClientRect();
+  for(let i=0;i<20;i++){
+    const c=document.createElement('div');c.className='confetti-piece';
+    c.style.left=(rect.left+rect.width/2+(Math.random()-.5)*60)+'px';c.style.top=rect.top+'px';
+    c.style.background=CONFETTI_COLORS[Math.floor(Math.random()*CONFETTI_COLORS.length)];
+    c.style.borderRadius='50%';c.style.width='8px';c.style.height='8px';
+    c.style.animationDuration=(1+Math.random()*1.5)+'s';
+    document.body.appendChild(c);setTimeout(()=>c.remove(),3000);
+  }
+}
 
-    /* ===================================================================
-       GAME 2: MEMORY MATCH
-    =================================================================== */
-    const MEMORY_EMOJIS = ['💖', '🌸', '🎀', '👑', '🌺', '🌹', '💐', '🌼', '🩷', '🌷', '🤍', '💝'];
-    let memCards = [], memFlipped = [], memMatched = 0, memLocked = false, memMoves = 0, memCols = 4;
+/* ===== WIN ===== */
+function showWin(msg){document.getElementById('win-msg').textContent=msg;document.getElementById('win-overlay').classList.add('active');}
+function closeWin(){document.getElementById('win-overlay').classList.remove('active');}
 
-    function startMemory(cols) {
-      memCols = cols;
-      memFlipped = []; memMatched = 0; memMoves = 0; memLocked = false;
-      const rows = 4;
-      const pairs = (cols * rows) / 2;
-      const chosen = MEMORY_EMOJIS.slice(0, pairs);
-      memCards = shuffle([...chosen, ...chosen]);
-      renderMemory();
-      document.getElementById('mem-status').textContent = `Moves: 0 | Milaaye: 0 / ${pairs}`;
-    }
-
-    function shuffle(arr) { return arr.sort(() => Math.random() - 0.5); }
-
-    function renderMemory() {
-      const g = document.getElementById('memory-grid');
-      g.innerHTML = '';
-      g.style.gridTemplateColumns = `repeat(${memCols}, 80px)`;
-      memCards.forEach((emoji, i) => {
-        const card = document.createElement('div');
-        card.className = 'mem-card';
-        card.innerHTML = `
-      <div class="mem-card-face mem-card-back">💖</div>
-      <div class="mem-card-face mem-card-front">${emoji}</div>`;
-        card.onclick = () => flipCard(card, i, emoji);
-        g.appendChild(card);
-      });
-    }
-
-    function flipCard(card, idx, emoji) {
-      if (memLocked || card.classList.contains('flipped') || card.classList.contains('matched')) return;
-      card.classList.add('flipped');
-      memFlipped.push({ card, idx, emoji });
-      if (memFlipped.length === 2) {
-        memMoves++;
-        memLocked = true;
-        const [a, b] = memFlipped;
-        if (a.emoji === b.emoji) {
-          a.card.classList.add('matched'); b.card.classList.add('matched');
-          memMatched++;
-          memFlipped = []; memLocked = false;
-          const pairs = (memCols * 4) / 2;
-          addScore(3, b.card);
-          document.getElementById('mem-status').textContent = `Moves: ${memMoves} | Milaaye: ${memMatched} / ${pairs}`;
-          if (memMatched === pairs) {
-            setTimeout(() => {
-              addScore(15, null);
-              launchConfetti();
-              showWin(`🧠 Kamaal! Aapne saare ${pairs} pairs sirf ${memMoves} moves mein milaa diye! 15 bonus hearts miley! Aapki yaaddaasht toh lajawab hai Maa!`);
-            }, 500);
-          }
-        } else {
-          setTimeout(() => {
-            a.card.classList.remove('flipped');
-            b.card.classList.remove('flipped');
-            memFlipped = []; memLocked = false;
-            streak = Math.max(0, streak - 1); updateUI();
-          }, 900);
-        }
-      }
-    }
-
-    /* ===================================================================
-       GAME 3: WORD OF LOVE
-    =================================================================== */
-    const WORD_BANK = [
-      { word: 'MOTHER', clue: 'Woh insaan jisne aapko janam diya aur beintehaan pyaar kiya', cat: '💖 Parivaar' },
-      { word: 'WARMTH', clue: 'Thandi raat mein Maa ke gale lagane ka ehsaas', cat: '🌞 Ehsaas' },
-      { word: 'FLOWER', clue: 'Ek sundar tohfa ek sundar insaan ke liye', cat: '🌸 Prakriti' },
-      { word: 'TENDER', clue: 'Naram dil se kiya gaya pyaar aur sabr', cat: '💝 Khoobiyan' },
-      { word: 'BRAVE', clue: 'Yeh shabd har Maa ko perfectly describe karta hai', cat: '💪 Himmat' },
-      { word: 'HUGS', clue: 'Maa inhe free mein deti hain, kabhi khatam nahi hote', cat: '🤗 Pyaar' },
-      { word: 'GRACE', clue: 'Khubsurti aur waqaar ke saath zindagi jeena', cat: '👑 Shaan' },
-      { word: 'LOYAL', clue: 'Hamesha saath, chahe kuch bhi ho — bilkul Maa ki tarah', cat: '🛡️ Wafadaari' },
-      { word: 'SMILE', clue: 'Maa ki sabse badi superpower', cat: '😊 Khushi' },
-      { word: 'HEART', clue: 'Maa hamesha isko safe rakhti hain', cat: '💕 Mohabbat' },
-    ];
-
-    let wordQueue = [], wordIdx = 0, currentWord = '', currentGuessed = [], wordScore = 0;
-
-    function initWords() {
-      wordQueue = shuffle([...WORD_BANK]);
-      wordIdx = 0; wordScore = 0;
-      renderWordProgress();
-      loadWord();
-    }
-
-    function renderWordProgress() {
-      const el = document.getElementById('word-progress');
-      el.innerHTML = wordQueue.map((_, i) => `<div class="word-dot ${i < wordIdx ? 'done' : i === wordIdx ? 'current' : ''}"></div>`).join('');
-    }
-
-    function loadWord() {
-      if (wordIdx >= wordQueue.length) {
-        addScore(20, null);
-        launchConfetti();
-        showWin(`💌 Aapne saare ${wordQueue.length} Pyaar ke Shabd complete kar liye! Zabardast! +20 bonus hearts! Maa ko aap par bahut garv hai!`);
-        wordIdx = 0; renderWordProgress(); loadWord(); return;
-      }
-      const entry = wordQueue[wordIdx];
-      currentWord = entry.word;
-      currentGuessed = new Array(currentWord.length).fill(null);
-      document.getElementById('word-clue').textContent = `"${entry.clue}"`;
-      document.getElementById('word-cat').textContent = entry.cat;
-      document.getElementById('word-feedback').textContent = '';
-      document.getElementById('word-next-btn').style.display = 'none';
-      renderWordBlanks();
-      renderLetterChoices();
-    }
-
-    function renderWordBlanks() {
-      const el = document.getElementById('word-blanks'); el.innerHTML = '';
-      currentWord.split('').forEach((ch, i) => {
-        const box = document.createElement('div');
-        box.className = 'letter-box' + (currentGuessed[i] ? ' filled' : '');
-        box.textContent = currentGuessed[i] || '';
-        el.appendChild(box);
-      });
-    }
-
-    function renderLetterChoices() {
-      const el = document.getElementById('letter-choices'); el.innerHTML = '';
-      const correct = [...new Set(currentWord.split(''))];
-      const alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-      const extras = shuffle(alpha.filter(c => !correct.includes(c))).slice(0, Math.max(0, 10 - correct.length));
-      const choices = shuffle([...correct, ...extras]).slice(0, 14);
-      choices.forEach(ch => {
-        const btn = document.createElement('button');
-        btn.className = 'letter-choice';
-        btn.textContent = ch;
-        btn.onclick = () => guessLetter(ch, btn);
-        el.appendChild(btn);
-      });
-    }
-
-    function guessLetter(ch, btn) {
-      btn.disabled = true;
-      const positions = [];
-      currentWord.split('').forEach((c, i) => { if (c === ch && !currentGuessed[i]) positions.push(i); });
-      if (positions.length > 0) {
-        positions.forEach(i => { currentGuessed[i] = ch; });
-        addScore(2, btn);
-        renderWordBlanks();
-        if (currentGuessed.every(c => c !== null)) {
-          document.getElementById('word-feedback').textContent = '🎉 Bilkul Sahi! Aapne kar diya!';
-          document.getElementById('word-next-btn').style.display = 'inline-block';
-          wordIdx++; renderWordProgress();
-        }
-      } else {
-        btn.style.background = 'rgba(239,68,68,0.15)';
-        btn.style.borderColor = '#ef4444';
-        streak = Math.max(0, streak - 1); updateUI();
-        document.getElementById('word-feedback').textContent = '💭 Nahi mila — koi aur try kariye!';
-      }
-    }
-
-    function nextWord() { loadWord(); }
-
-    document.getElementById('tab-word').addEventListener('click', () => {
-      if (!currentWord) initWords();
-    });
-
-    /* ===================================================================
-       GIFT BOXES
-    =================================================================== */
-    const GIFTS = [
-      { icon: '🌹', title: 'Gulaabon Ka Bagicha', text: 'Socho ek bagicha jahan sabse khoobsurat gulaab sirf aapke liye khile hon. Aisi hi khoobsurati se bhari hai meri zindagi — kyunki aap hain isme.' },
-      { icon: '⭐', title: 'Aap Hain Mera Sitaara', text: 'Jab main taaron ko dekhta hun, toh aap yaad aati hain. Aap mere duniya ke andheron ko roshan karti hain aur hamesha ghar wapas laati hain.' },
-      { icon: '🍰', title: 'Aap Jaisi Meethi', text: 'Duniya mein kuch bhi aapki mohabbat jaisa meetha nahi. Na cake, na mithai, kuch bhi nahi. Thank you meri zindagi ka sabse meetha hissa banne ke liye.' },
-      { icon: '🎵', title: 'Hamara Gaana', text: '"Tum mere jeevan ki roshni ho" — pyaar par likha har gaana asal mein aapke baare mein hi likha gaya hai, Maa. Aap meri favorite dhun hain.' },
-      { icon: '🌙', title: 'Har Jaagi Raat', text: 'Jab bhi aap raat ko mere liye jaag kar baithe, main aapke kaaran safe tha. Jaaniye ki aapki qurbaaniyan kabhi bhi unnoticed nahi rahi, kabhi nahi.' },
-      { icon: '🦋', title: 'Aapne Mujhe Udna Sikhaya', text: 'Aapne mujhe itne mazboot pankh diye ki main ud sakun, aur itna himmatwala dil ki main oopar jaata rahun. Jo kuch bhi hun main, woh sab aapki wajah se hun.' },
-    ];
-
-    const giftRow = document.getElementById('gifts-row');
-    GIFTS.forEach((g, i) => {
-      const box = document.createElement('div');
-      box.className = 'gift-box';
-      box.innerHTML = `<span class="box-icon">${g.icon}</span><p>Kholiye Mujhe!</p>`;
-      box.onclick = function () {
-        box.classList.add('opened');
-        box.querySelector('p').textContent = '💖';
-        addScore(5, box);
-        openGift(g);
-        launchMiniConfetti(box);
-      };
-      giftRow.appendChild(box);
-    });
-
-    function openGift(g) {
-      document.getElementById('gift-msg-icon').textContent = g.icon;
-      document.getElementById('gift-msg-title').textContent = g.title;
-      document.getElementById('gift-msg-text').textContent = g.text;
-      document.getElementById('gift-msg').classList.add('visible');
-      document.getElementById('overlay').style.display = 'block';
-    }
-
-    function closeGiftMsg() {
-      document.getElementById('gift-msg').classList.remove('visible');
-      document.getElementById('overlay').style.display = 'none';
-    }
-
-    /* ===================================================================
-       CONFETTI
-    =================================================================== */
-    const CONFETTI_COLORS = ['#e8537a', '#f0b943', '#c084fc', '#6ee7b7', '#f97316', '#38bdf8'];
-
-    function launchConfetti() {
-      for (let i = 0; i < 80; i++) {
-        const el = document.createElement('div');
-        el.className = 'confetti-piece';
-        el.style.left = Math.random() * 100 + 'vw';
-        el.style.background = CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)];
-        el.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
-        el.style.width = (6 + Math.random() * 10) + 'px';
-        el.style.height = (10 + Math.random() * 16) + 'px';
-        el.style.animationDuration = (2 + Math.random() * 3) + 's';
-        el.style.animationDelay = Math.random() * 1 + 's';
-        document.body.appendChild(el);
-        setTimeout(() => el.remove(), 5000);
-      }
-    }
-
-    function launchMiniConfetti(el) {
-      const rect = el.getBoundingClientRect();
-      for (let i = 0; i < 20; i++) {
-        const c = document.createElement('div');
-        c.className = 'confetti-piece';
-        c.style.left = (rect.left + rect.width / 2 + (Math.random() - 0.5) * 60) + 'px';
-        c.style.top = rect.top + 'px';
-        c.style.background = CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)];
-        c.style.borderRadius = '50%';
-        c.style.width = '8px';
-        c.style.height = '8px';
-        c.style.animationDuration = (1 + Math.random() * 1.5) + 's';
-        document.body.appendChild(c);
-        setTimeout(() => c.remove(), 3000);
-      }
-    }
-
-    /* ===================================================================
-       WIN OVERLAY
-    =================================================================== */
-    function showWin(msg) {
-      document.getElementById('win-msg').textContent = msg;
-      document.getElementById('win-overlay').classList.add('active');
-    }
-
-    function closeWin() {
-      document.getElementById('win-overlay').classList.remove('active');
-    }
-
-    /* ===================================================================
-       INIT
-    =================================================================== */
-    startMemory(4);
-  </script>
+/* ===== INIT ===== */
+startMemory(4);
+</script>
 </body>
-
 </html>
